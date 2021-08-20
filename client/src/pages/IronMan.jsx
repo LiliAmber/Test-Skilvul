@@ -28,32 +28,21 @@ export default function IronMan() {
         <h1 className=" text-gray-500 text-center py-4 font-extrabold -mt-3 text-4xl md:text-5xl ">
           IRON MAN GIPHY
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-6 gap-6">
-          {/* <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" />
-          <img src="https://picsum.photos/id/244/900/900" alt="example" /> */}
-          {ironMan.map((item) => {
-            return (
-              <img
-                key={item.id}
-                src={item.images.fixed_height.url}
-                // width="350px"
-                // heigth="150px"
-                // resizeMode="contain"
-                className="border-4 object-fit"
-                alt="gif"
-              />
-            );
-          })}
+        <div className="container mx-auto mt-5">
+          <div className="grid grid-cols-3 p-6 gap-6">
+            {ironMan.map((item) => {
+              return (
+                <img
+                  key={item.id}
+                  src={item.images.fixed_height.url}
+                  className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
+                  alt="gif"
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
-      {/* <pre>{JSON.stringify(ironMan)}</pre> */}
     </div>
   );
 }
