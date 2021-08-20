@@ -5,7 +5,14 @@ export default function Home() {
   return (
     <div>
       <h1>home</h1>
-      <Link to="/ironMan">IRON MAN PAGE</Link>
+      <ul>
+        <li>
+          <Link to="/ironMan">IRON MAN PAGE</Link>
+        </li>
+        <li>
+          <Link to="/search">SEARCH PAGE</Link>
+        </li>
+      </ul>
     </div>
   );
 }

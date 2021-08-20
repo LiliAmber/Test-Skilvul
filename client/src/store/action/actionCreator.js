@@ -58,3 +58,24 @@ export function fetchIronMan() {
     }
   };
 }
+
+export function fetchSearch(keywords) {
+  return async (dispatch) => {
+    // let keywords = "sinchan";
+    console.log(keywords.keywords, "<<<<di action cretaor");
+    try {
+      console.log("<<<<MASOOKK");
+      let { data } = await axios({
+        method: "GET",
+        url: `https://api.giphy.com/v1/gifs/search?api_key=hvCgw7Nh8qf7sEPA7lModLlNIMYYo8eN&q=${keywords.keywords}&limit=9`,
+      });
+      console.log(data.data, "<<<<fetch search");
+
+      // dispatch(setIronMan(data.data));
+    } catch (error) {
+      dispatch(setError(error));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}

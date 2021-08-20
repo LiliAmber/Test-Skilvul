@@ -41,11 +41,12 @@ export default function IronMan() {
           {ironMan.map((item) => {
             return (
               <img
+                key={item.id}
                 src={item.images.fixed_height.url}
                 // width="350px"
                 // heigth="150px"
                 // resizeMode="contain"
-                className="border-4"
+                className="border-4 object-fit"
                 alt="gif"
               />
             );
