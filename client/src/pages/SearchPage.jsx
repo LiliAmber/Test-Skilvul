@@ -49,7 +49,7 @@ export default function SearchPage() {
             className="flex mx-4 w-full h-10 pl-3 pr-8 m-2 text-base placeholder-gray-600 border rounded-md focus:outline-none focus:ring"
             type="text"
             name="keywords"
-            placeholder="unicorn"
+            placeholder="Search Giphy"
             {...register("keywords", { required: true })}
           />
           <button
