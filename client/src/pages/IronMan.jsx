@@ -11,16 +11,23 @@ export default function IronMan() {
   }, [dispatch]);
 
   const ironMan = useSelector((state) => state.ironManReducer.ironMan);
-  console.log(ironMan, "<<<fetch di ironman");
   const loading = useSelector((state) => state.ironManReducer.loading);
   const error = useSelector((state) => state.ironManReducer.error);
 
   if (loading) {
-    return <h1>LOADING ...</h1>;
+    return (
+      <h1 className="text-gray-500 text-center py-24 font-extrabold -mt-3 text-4xl md:text-5xl">
+        LOADING ...
+      </h1>
+    );
   }
 
   if (error) {
-    return <h1>ERROR ...</h1>;
+    return (
+      <h1 className="text-red-500 text-center py-24 font-extrabold -mt-3 text-4xl md:text-5xl ">
+        ERROR ...
+      </h1>
+    );
   }
   return (
     <div>
@@ -35,7 +42,7 @@ export default function IronMan() {
                 <img
                   key={item.id}
                   src={item.images.fixed_height.url}
-                  className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
+                  className="object-fit rounded object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36 border-4"
                   alt="gif"
                 />
               );

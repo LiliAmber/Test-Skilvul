@@ -1,38 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { fetchSearch, setLoading } from "../store/action/actionCreator";
+import { fetchSearch } from "../store/action/actionCreator";
 
 export default function SearchPage() {
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    dispatch(fetchSearch(data));
+  const {
+    search: searchValue,
+    loading,
+    error,
+  } = useSelector((state) => state.searchReducer);
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (keywords) => {
+    dispatch(fetchSearch(keywords));
   };
 
-  // useEffect(() => {
-  //   dispatch(setLoading(true));
-  //   dispatch(fetchSearch());
-  // }, [dispatch]);
+  if (loading) {
+    return (
+      <h1 className="text-gray-500 text-center py-24 font-extrabold -mt-3 text-4xl md:text-5xl">
+        LOADING ...
+      </h1>
+    );
+  }
 
-  // const ironMan = useSelector((state) => state.searchReducer.search);
-  // console.log(ironMan, "<<<fetch di ironman");
-  // const loading = useSelector((state) => state.searchReducer.loading);
-  // const error = useSelector((state) => state.searchReducer.error);
-
-  // if (loading) {
-  //   return <h1>LOADING ...</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1>ERROR ...</h1>;
-  // }
+  if (error) {
+    return (
+      <h1 className="text-red-500 text-center py-24 font-extrabold -mt-3 text-4xl md:text-5xl ">
+        ERROR ...
+      </h1>
+    );
+  }
 
   return (
     <div>
@@ -41,21 +41,19 @@ export default function SearchPage() {
           SEARCH YOUR GIPHY
         </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex w-full lg:mx-auto lg:justify-center lg:w-1/2 mt-5"
+        >
           <input
+            className="flex mx-4 w-full h-10 pl-3 pr-8 m-2 text-base placeholder-gray-600 border rounded-md focus:outline-none focus:ring"
             type="text"
             name="keywords"
-            placeholder="batman"
-            className="px-3 py-3 placeholder-blueGray-300 tracking-wide text-blueGray-600 relative bg-white text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring pr-10 mb-6 rounded-xl"
+            placeholder="unicorn"
             {...register("keywords", { required: true })}
           />
-          {errors.productName && (
-            <span className="text-red-600">This field is required</span>
-          )}
           <button
-            className="bg-gray-600 text-gray-100 p-4 rounded-xl tracking-wide
-        font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-gray-800
-        shadow-lg"
+            className="h-10 px-5 m-2 text-gray-100 transition-colors duration-150 bg-gray-600 rounded-d hover:bg-gray-800"
             type="submit"
           >
             Search
@@ -64,51 +62,16 @@ export default function SearchPage() {
 
         <div className="container mx-auto mt-5">
           <div className="grid grid-cols-3 p-6 gap-6">
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
-            <img
-              src="https://picsum.photos/id/244/900/900"
-              alt="example"
-              className="object-fit rounded-md object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36"
-            />
+            {searchValue.map((item) => {
+              return (
+                <img
+                  key={item.id}
+                  src={item.images.fixed_height.url}
+                  className="object-fit rounded object-center w-40 h-24 sm:w-full mb-4 lg:h-48 xl:h-30  2xl:h-48 md:h-36 border-4"
+                  alt="gif"
+                />
+              );
+            })}
           </div>
         </div>
       </div>
